@@ -6,9 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "./store/userSlice";
 
 import { TableInfo } from "./components/Table";
-
-import CircularProgress from "@mui/material/CircularProgress";
-import Backdrop from "@mui/material/Backdrop";
+import { Progress } from "./components/Progress";
 
 const App = () => {
   const { users } = useSelector((state) => state);
@@ -37,11 +35,7 @@ const App = () => {
 
   return (
     <div className="table">
-      {users.status === "loading" ? (
-        <Backdrop className="backdrop" open>
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      ) : null}
+      <Progress users={users} />
 
       <TableInfo
         users={users.users}
