@@ -27,7 +27,11 @@ const initialState = {
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    deleteUsers: (state, action) => {
+      state.users = state.users.filter((el) => el.id !== action.payload);
+    },
+  },
   extraReducers: {
     [getUsers.pending]: (state) => {
       state.status = "loading";
@@ -44,5 +48,5 @@ export const usersSlice = createSlice({
   },
 });
 
-export const {} = usersSlice.actions;
+export const { deleteUsers } = usersSlice.actions;
 export default usersSlice.reducer;

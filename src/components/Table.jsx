@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 
 import PropTypes from "prop-types";
 
+import { useDispatch } from "react-redux";
+import { deleteUsers } from "../store/userSlice";
+
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,11 +17,15 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
+import HighlightOffRoundedIcon from "@mui/icons-material/HighlightOffRounded";
+
 import { SortingIcon } from "./SortingIcon";
 import { PaginationFC } from "./Pagination";
 
 const TableInfo = (props) => {
   const { users, error, data, order, setData, sortArray } = props;
+
+  const dispatch = useDispatch();
 
   // render list array
   useEffect(() => setData(users), [users]);
@@ -32,6 +39,10 @@ const TableInfo = (props) => {
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
   const totalPosts = data.length;
+
+  const handleDelete = (user) => {
+    dispatch(deleteUsers(user.id));
+  };
 
   return (
     <>
@@ -68,6 +79,7 @@ const TableInfo = (props) => {
                 <SortingIcon order={order} />
               </TableCell>
               <TableCell align="left">Company name</TableCell>
+              <TableCell align="left">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -81,6 +93,12 @@ const TableInfo = (props) => {
                   <TableCell align="left">{user.email}</TableCell>
                   <TableCell align="left">{user.website}</TableCell>
                   <TableCell align="left">{user.company.name}</TableCell>
+                  <TableCell align="left">
+                    <HighlightOffRoundedIcon
+                      color="error"
+                      onClick={() => handleDelete(user)}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
