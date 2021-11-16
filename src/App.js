@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+/** @format */
 
-function App() {
+import React, { useEffect, useState } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getUsers } from "./store/userSlice";
+
+import { TableInfo } from "./components/Table";
+
+import CircularProgress from "@mui/material/CircularProgress";
+import Backdrop from "@mui/material/Backdrop";
+
+const App = () => {
+  const { users } = useSelector((state) => state);
+  const [data, setData] = useState(users.users);
+  const [order, setOrder] = useState("asc");
+
+  // get async users
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const dispatch = useDispatch();
+
+  // Sorting function
+  const sortArray = (type) => {
+    if (order === "asc") {
+      const sorting = [...data].sort((a, b) => (a[type] > b[type] ? 1 : -1));
+      setData(sorting);
+      setOrder("desc");
+    } else if (order === "desc") {
+      const sorting = [...data].sort((a, b) => (a[type] < b[type] ? 1 : -1));
+      setData(sorting);
+      setOrder("asc");
+    } else return;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="table">
+      {users.status === "loading" ? (
+        <Backdrop className="backdrop" open>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      ) : null}
+
+      <TableInfo
+        users={users.users}
+        error={users.error}
+        data={data}
+        order={order}
+        setData={setData}
+        sortArray={sortArray}
+      />
     </div>
   );
-}
+};
 
-export default App;
+export { App };
