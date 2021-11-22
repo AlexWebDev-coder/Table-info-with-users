@@ -11,6 +11,21 @@
 
 .pagination {
     display: flex;
-    justify-content: start;
-    padding-bottom: 50px;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 10px;
+  }
+
+  #lblCartCount {
+    font-size: 15px;
+    background: #24dbf3;
+    color: rgb(0, 0, 0);
+    padding: 0 4px;
+    vertical-align: top;
+    margin-left: -10px; 
 }

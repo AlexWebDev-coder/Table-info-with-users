@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getUsers } from "./store/userSlice";
 
 import { TableInfo } from "./components/Table";
-import { Progress } from "./components/Progress";
+import Progress from "./components/Progress";
 
 const App = () => {
   const { users } = useSelector((state) => state);
@@ -35,7 +35,7 @@ const App = () => {
 
   return (
     <div className="table">
-      <Progress users={users} />
+      {users.status === "loading" ? <Progress /> : null}
 
       <TableInfo
         users={users.users}

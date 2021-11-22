@@ -20,6 +20,7 @@ export const getUsers = createAsyncThunk(
 
 const initialState = {
   users: [],
+  specialUsers: [],
   status: null,
   error: null,
 };
@@ -28,8 +29,17 @@ export const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    addSpecialUser: (state, action) => {
+      state.specialUsers.push(action.payload);
+    },
+
     deleteUsers: (state, action) => {
       state.users = state.users.filter((el) => el.id !== action.payload);
+    },
+    deleteSpecialUser: (state, action) => {
+      state.specialUsers = state.specialUsers.filter(
+        (el) => el.id !== action.payload
+      );
     },
   },
   extraReducers: {
@@ -48,5 +58,6 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { deleteUsers } = usersSlice.actions;
+export const { addSpecialUser, deleteUsers, deleteSpecialUser } =
+  usersSlice.actions;
 export default usersSlice.reducer;
