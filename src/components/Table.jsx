@@ -5,7 +5,11 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addSpecialUser, deleteUsers } from "../store/userSlice";
+import {
+  addSpecialUser,
+  deleteUsers,
+  fetchDeleteUsers,
+} from "../store/userSlice";
 
 import { useNavigate } from "react-router-dom";
 
@@ -29,6 +33,8 @@ import { PaginationFC } from "./Pagination";
 const TableInfo = (props) => {
   const { users, error, data, order, setData, sortArray } = props;
   const { specialUsers } = useSelector((state) => state.users);
+  // console.log(">>>>", specialUser);
+
   const dispatch = useDispatch();
   let navigate = useNavigate();
 
@@ -50,10 +56,10 @@ const TableInfo = (props) => {
   };
 
   const handleDelete = (user) => {
-    dispatch(deleteUsers(user.id));
+    fetchDeleteUsers(user.id);
   };
 
-  const specialUser = () => navigate("/specialUsers");
+  const navigateSpecialUser = () => navigate("/specialUsers");
 
   return (
     <>
@@ -66,7 +72,7 @@ const TableInfo = (props) => {
           setCurrentPage={setCurrentPage}
         />
         <Box>
-          <IconButton onClick={specialUser}>
+          <IconButton onClick={navigateSpecialUser}>
             <AddShoppingCartIcon color="info" />
           </IconButton>
           <span className="badge" id="lblCartCount">

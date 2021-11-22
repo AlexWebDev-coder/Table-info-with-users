@@ -18,6 +18,26 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+export const fetchDeleteUsers = createAsyncThunk(
+  "delete/deleteUsers",
+  async (id, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/users/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+      dispatch(deleteUsers(id));
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
   users: [],
   specialUsers: [],
