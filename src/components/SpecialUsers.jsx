@@ -35,7 +35,7 @@ const SpecialUsers = () => {
   const handleDeleteUser = (el) => {
     dispatch(deleteSpecialUser(el.id));
   };
-  console.log(specialUsers);
+
   return (
     <Container sx={{ mt: 5 }}>
       {specialUsers.length === 0 ? (

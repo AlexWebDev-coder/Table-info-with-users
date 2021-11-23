@@ -1,0 +1,17 @@
+// const phoneNumberFormat = (num = "") => {
+//     const numArr = String(num).split("");
+//     numArr.splice(0, 0, "+(");
+//     numArr.splice(4, 0, ")");
+//     numArr.splice(7, 0, " ");
+//     numArr.splice(10, 0, "-");
+//     numArr.splice(13, 0, "-");
+
+//     return numArr.join("");
+//   };
+//   console.log(phoneNumberFormat(99362908759));
+
+//   const createPhoneNumber = (number) => {
+//     const strNum = number.toString();
+//     return `+(${strNum.slice(0, 3)})${strNum.slice(3, 5)} ${strNum.slice(5,7)}-${strNum.slice(7, 9)}-${strNum.slice(9, 11)}`;
+//   };
+//   console.log(createPhoneNumber(99362908759));
