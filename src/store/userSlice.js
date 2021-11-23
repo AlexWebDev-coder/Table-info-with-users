@@ -38,6 +38,28 @@ export const fetchDeleteUsers = createAsyncThunk(
   }
 );
 
+export const fetchUsersEdit = createAsyncThunk(
+  "edit/fetchUsersEdit",
+  async (data, { rejectWithValue, dispatch }) => {
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/users`,
+        {
+          method: "PUT",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Can't add task. Server error");
+      }
+
+      dispatch(editSpecialUser(data));
+    } catch (error) {
+      return rejectWithValue("Something went wrong");
+    }
+  }
+);
+
 const initialState = {
   users: [],
   specialUsers: [],
@@ -53,9 +75,16 @@ export const usersSlice = createSlice({
       state.specialUsers.push(action.payload);
     },
 
+    editSpecialUser: (state, action) => {
+      state.specialUsers = state.specialUsers.map((el) =>
+        el.id === action.payload.id ? action.payload : el
+      );
+    },
+
     deleteUsers: (state, action) => {
       state.users = state.users.filter((el) => el.id !== action.payload);
     },
+
     deleteSpecialUser: (state, action) => {
       state.specialUsers = state.specialUsers.filter(
         (el) => el.id !== action.payload
@@ -78,6 +107,10 @@ export const usersSlice = createSlice({
   },
 });
 
-export const { addSpecialUser, deleteUsers, deleteSpecialUser } =
-  usersSlice.actions;
+export const {
+  addSpecialUser,
+  editSpecialUser,
+  deleteUsers,
+  deleteSpecialUser,
+} = usersSlice.actions;
 export default usersSlice.reducer;

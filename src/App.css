@@ -29,3 +29,8 @@
     vertical-align: top;
     margin-left: -10px; 
 }
+
+.editUsers {
+    display: flex;
+    flex-direction: column;
+}

@@ -4,6 +4,8 @@ import React from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 
+import { EditSpecialUsers } from "./EditSpecialUsers";
+
 import { useNavigate } from "react-router";
 
 import { deleteSpecialUser } from "../store/userSlice";
@@ -33,7 +35,7 @@ const SpecialUsers = () => {
   const handleDeleteUser = (el) => {
     dispatch(deleteSpecialUser(el.id));
   };
-
+  console.log(specialUsers);
   return (
     <Container sx={{ mt: 5 }}>
       {specialUsers.length === 0 ? (
@@ -50,6 +52,7 @@ const SpecialUsers = () => {
                   <TableCell align="left">Phone</TableCell>
                   <TableCell align="left">Website</TableCell>
                   <TableCell align="left">Company name</TableCell>
+                  <TableCell align="left">Edit</TableCell>
                   <TableCell align="left">Delete</TableCell>
                 </TableRow>
               </TableHead>
@@ -62,6 +65,9 @@ const SpecialUsers = () => {
                     <TableCell align="left">{el.phone}</TableCell>
                     <TableCell align="left">{el.website}</TableCell>
                     <TableCell align="left">{el.company.name}</TableCell>
+                    <TableCell align="left">
+                      <EditSpecialUsers element={el} />
+                    </TableCell>
                     <TableCell align="left">
                       <IconButton>
                         <HighlightOffRoundedIcon

@@ -33,7 +33,6 @@ import { PaginationFC } from "./Pagination";
 const TableInfo = (props) => {
   const { users, error, data, order, setData, sortArray } = props;
   const { specialUsers } = useSelector((state) => state.users);
-  // console.log(">>>>", specialUser);
 
   const dispatch = useDispatch();
   let navigate = useNavigate();
@@ -56,7 +55,9 @@ const TableInfo = (props) => {
   };
 
   const handleDelete = (user) => {
-    fetchDeleteUsers(user.id);
+    dispatch(deleteUsers(user.id));
+    // fetchDeleteUsers(user.id);
+    console.log(users);
   };
 
   const navigateSpecialUser = () => navigate("/specialUsers");
@@ -141,7 +142,11 @@ const TableInfo = (props) => {
           </TableBody>
         </Table>
 
-        {error && <Typography variant="h4">{error}</Typography>}
+        {error && (
+          <Typography variant="h4" sx={{ m: 2 }}>
+            {error}
+          </Typography>
+        )}
       </TableContainer>
     </>
   );
